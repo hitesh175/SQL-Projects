@@ -1,0 +1,30 @@
+-- Create 'stations' table
+CREATE TABLE IF NOT EXISTS stations (
+    station_id INT PRIMARY KEY,
+    station_name VARCHAR(100),
+    city VARCHAR(50)
+);
+
+-- Create 'routes' table
+CREATE TABLE IF NOT EXISTS routes (
+    route_id INT PRIMARY KEY,
+    start_station_id INT,
+    end_station_id INT,
+    duration_minutes INT,
+    FOREIGN KEY (start_station_id) REFERENCES stations(station_id),
+    FOREIGN KEY (end_station_id) REFERENCES stations(station_id)
+);
+
+-- Insert example data into 'stations' table
+INSERT INTO stations (station_id, station_name, city) VALUES
+    (1, 'Station A', 'City X'),
+    (2, 'Station B', 'City X'),
+    (3, 'Station C', 'City Y'),
+    (4, 'Station D', 'City Y');
+
+-- Insert example data into 'routes' table
+INSERT INTO routes (route_id, start_station_id, end_station_id, duration_minutes) VALUES
+    (1, 1, 2, 30),
+    (2, 1, 3, 60),
+    (3, 2, 4, 45),
+    (4, 3, 4, 40);
