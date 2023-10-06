@@ -1,0 +1,37 @@
+-- Create the 'artists' table
+CREATE TABLE IF NOT EXISTS artists (
+    artist_id INTEGER PRIMARY KEY,
+    artist_name TEXT
+);
+
+-- Create the 'songs' table
+CREATE TABLE IF NOT EXISTS songs (
+    song_id INTEGER PRIMARY KEY,
+    song_name TEXT,
+    artist_id INTEGER,
+    genre TEXT,
+    popularity INTEGER,
+    FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
+);
+
+-- Insert example data into 'artists' table
+INSERT INTO artists (artist_name) VALUES ('Artist 1');
+INSERT INTO artists (artist_name) VALUES ('Artist 2');
+
+-- Insert example data into 'songs' table
+INSERT INTO songs (song_name, artist_id, genre, popularity) VALUES ('Song 1', 1, 'Pop', 80);
+INSERT INTO songs (song_name, artist_id, genre, popularity) VALUES ('Song 2', 1, 'Rock', 90);
+INSERT INTO songs (song_name, artist_id, genre, popularity) VALUES ('Song 3', 2, 'Pop', 70);
+
+-- Example analysis queries
+-- Top popularity songs
+SELECT song_name, artist_name, popularity
+FROM songs
+JOIN artists ON songs.artist_id = artists.artist_id
+WHERE popularity > 80
+ORDER BY popularity DESC;
+
+-- Genre distribution
+SELECT genre, COUNT(*) AS count
+FROM songs
+GROUP BY genre;
